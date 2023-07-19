@@ -1,0 +1,238 @@
+
+.tab-menu > input{
+    display: none;
+}
+
+.tab-menu {
+    width: 100%;
+    position: relative;
+    margin: 0 auto;
+}
+
+.tab-menu > input + label{
+    position: relative;
+    float: left;
+    width: 19.8%;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    font-size: 20px;
+    margin: 0px;
+    border-top: 1px solid #222;
+    border-left: 1px solid #222;
+    border-right: 1px solid #222;
+    border-bottom: 1px solid #503396;
+    padding: 0px;
+    cursor: pointer;
+}
+
+.tab-menu > input:checked + label{
+    color: #503396;
+    border-color: #503396;
+    border-bottom: none;
+}
+
+.movie-list {
+    margin-top: 100px;
+    
+}
+
+
+.box {
+    left: 50%;
+    transform: translateX(-50%);
+    position: absolute;
+    width: 100%;
+    height: 600px;
+    margin: 40px auto;
+    display: none;
+}
+
+input[class="tab01"]:checked ~ .item1{
+    display: block;
+}
+
+input[class="tab02"]:checked ~ .item2{
+    display: block;
+}
+
+input[class="tab03"]:checked ~ .item3{
+    display: block;
+}
+
+input[class="tab04"]:checked ~ .item4{
+    display: block;
+}
+
+input[class="tab05"]:checked ~ .item5{
+    display: block;
+}
+
+.text-box::before{
+    position: absolute;
+    top: 10px;
+    left: 172px;
+    content: "";
+    background-image: url('https://img.megabox.co.kr/static/pc/images/common/btn/btn-search-input.png');
+    width: 16px;
+    height: 16px;
+    background-size: 12px;
+    display: block;
+    background-repeat: no-repeat;
+}
+
+.text-box {
+    position: relative;
+    float: right;
+    margin-top: 40px;
+
+}
+
+
+.text-box input {
+    padding-right: 24px;
+    height: 28px;
+    border-radius: 6px;
+}
+
+ol {
+    list-style-type: none;
+}
+
+ol li {
+    width: 22%;
+    height: 510px;
+}
+
+.movie {
+    position: relative;
+    display: block;
+    margin-right: 34px;
+    margin-top: 30px;
+    float: left;
+}
+
+.movie-img {
+    width: 100%;
+}
+
+.rank {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 10px;
+    height: 100px;
+    padding: 0 0 0 20px;
+    line-height: 1.1;
+    font-size: 30px;
+    font-weight: 300;
+    color: #fff;
+    font-style: italic;
+}
+
+.sub {
+    position: relative;
+    display: block;
+}
+
+.movie-grade {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    top: 10px;
+    background-size: 24px 24px;
+    background-image: url('https://img.megabox.co.kr/static/pc/images/common/txt/12_46x46.png');
+}
+
+.movie-title {
+    position : absolute;
+    display: inline-block;
+    top: -10px;
+    left: 40px;
+    font-size: 20px;
+    
+}
+
+.rate-date {
+    margin-top: 40px;
+    width: 100%;
+    font-size: 16px;
+}
+
+.rate-date span{
+    display: block;
+    position: relative;
+    float: left;
+    margin-left: 10px;
+    margin-right: 4px;
+    padding-right: 10px;
+}
+
+.rate::after {
+    content: '';
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    width: 1px;
+    height: 12px;
+    background-color: #d8d9db;
+}
+
+.btns {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height:34px;
+}
+
+.like {
+    width:32%;
+    height:36px;
+    background-color: #fff;
+    border-color: #ebebeb;
+    border-radius: 6px;
+}
+
+.like .ic {
+    width: 17px;
+    height: 15px;
+    display: inline-block;
+    background-position: 0px 0px;
+    background-image: url("https://img.megabox.co.kr/static/pc/images/common/ico/ico-heart-toggle-gray.png");
+}
+
+.purple {
+    width:31%;
+    height:36px;
+    background-color: #503396;
+    border-color: #503396;
+    border-radius: 6px;
+    font-size: 18px;
+    color: #fff;
+}
+
+.only-purple {
+    width:60%;
+    height:36px;
+    background-color: #503396;
+    border-color: #503396;
+    border-radius: 6px;
+    font-size: 18px;
+    color: #fff;
+}
+
+.only-gray {
+    width:60%;
+    height:36px;
+    background-color: #666;
+    border-color: #666;
+    border-radius: 6px;
+    font-size: 18px;
+    color: #fff;
+}
+
+
+
+

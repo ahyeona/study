@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+</head>
+<body>
+    전체 게시글
+    <div id="boardList">
+    </div>
+
+</body>
+<script>
+
+    // 전체 게시글 보여주는 화면
+    async function getAPI() {
+        try {
+            const {data} = await axios.get("http://127.0.0.1:8000/boards", {
+                withCredentials : true
+            });
+
+            console.log(data);
+            data.forEach((board) => {
+                let ul = document.createElement("ul");
+                let title = document.createElement("li");
+                let content = document.createElement("li");
+                let writer = document.createElement("li");
+
+                title.innerText = board.title;
+                content.innerText = board.content;
+                writer.innerText = board.User.name;
+
+                ul.append(title, content, writer);
+                boardList.append(ul);
+
+            });
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    getAPI();
+</script>
+</html>

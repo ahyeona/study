@@ -1,0 +1,135 @@
+0713 수정
+
+디자인
+
+회원가입
+- 중복확인 결과 띄워주기[] (alert?)
+- 정규식, 빈 값 처리하기[완료]
+
+게시글
+- 게시글 등록하고 목록갔을때 바로 추가되지 않음 []
+
+마이페이지 
+- 글 삭제하고 다시 들어가면 남아있음[ㅇㄹ]
+
+액세스토큰 없을때
+- 로그인화면으로 이동 [완료]
+
+
+
+----
+
+디자인 
+
+    display: flex;
+    flex-direction: column;
+
+
+
+---
+
+gpt
+
+
+근데 리액트에서 요청을 보낼때 thunk를 사용해서 요청을 보낸단말이야? 컴포넌트에서 dispatch함수를 실행하고 actions함수에서 요청과 응답을 받고 dispatch함수를 사용해서 redux의 상태값을 변경해주는 코드야. 이 경우에는 어떻게 적용할 수 있을까? 이건 actions 함수 파일 중 하나야 
+
+import axios from "axios";
+import { useHistory, useNavigate } from "react-router-dom";
+
+const getUser = () => {
+  return async (dispatch) => {
+    const data = await axios.get("/mypage/user", {
+      withCredentials: true,
+      validateStatus: false,
+    });
+
+    if (data.status == 401) {
+      const nav = useNavigate();
+      console.log("401에러");
+      nav("/login");
+      // const his = useHistory();
+      // his.push("/login");
+      return;
+    }
+
+    const { email, nickname } = data.data;
+    dispatch({ type: "MY_USER", payload: { email, nickname } });
+  };
+};
+
+
+export const mypages = { getUser };
+
+
+이런 에러가 떠
+Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for one of the following reasons:
+
+
+
+--------------------------
+
+
+import { createBrowserHistory } from "history";
+
+const MyPage = ({ history }) => {
+  const dispatch = useDispatch();
+
+  history = createBrowserHistory();
+
+  useEffect(() => {
+    dispatch(mypages.getUser(history));
+  }, [dispatch, history]);
+
+
+  return (
+    <div>
+      <Header />
+      <MyPageBox
+        email={email}
+        nickname={nickname}
+        getPost={getPost}
+        posts={posts}
+      />
+    </div>
+  );
+};
+
+
+
+
+
+
+const getUser = (history) => {
+  return async (dispatch) => {
+    const { data } = await axios.get("/mypage/user", {
+      withCredentials: true,
+    });
+
+    if (data.error) {
+      console.log("액세스토큰 에러");
+      history.push("/login");
+      return;
+    }
+
+    const { email, nickname } = data;
+    dispatch({ type: "MY_USER", payload: { email, nickname } });
+  };
+};
+
+function App() {
+  return (
+    <div className="App">
+      <Routes>
+        <Route path="/login" element={<Login />} />
+
+        <Route path="/mypage" element={<MyPage />} />
+
+      </Routes>
+    </div>
+  );
+}
+
+export default App;
+
+
+

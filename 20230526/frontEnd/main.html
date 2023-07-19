@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<style>
+    #isLoading {
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #fff;
+    }
+    #isLoading img {
+        width: 300px;
+    }
+    #isLoading.disable {
+        display: none;
+    }
+    #editdiv {
+        position: absolute;
+        top: 50px;
+        left: 400px;
+    }
+</style>
+<body>
+    <div id="isLoading">
+        <img src="./img/loading.gif" alt="로딩이미지">
+    </div>
+    <div>
+        <div>
+            <form action="http://127.0.0.1:8000/login/edit" method="post">
+                <span>이름 : </span>
+                <input id="user_name" name="name"></input>
+                <button>수정</button>
+            </form>
+        </div>
+        <div>
+            <form action="http://127.0.0.1:8000/login/edit" method="post">
+                <span>나이 : </span>
+                <input id="user_age" name="age"></input>
+                <button>수정</button>
+            </form>
+        </div>
+
+        <div>
+            전체 게시글
+            <div id="boardList">
+            </div>
+
+        </div>
+
+        <div id="editdiv">
+            게시글 수정
+            <form id="editfrm" action="http://127.0.0.1:8000/boards/edit" method="post">
+                <label for="">제목</label>
+                <input type="text" name="title"><br>
+                <label for="">내용</label>
+                <textarea name="content" id="" cols="30" rows="10"></textarea><br>
+            </form>
+        </div>
+    </div>
+</body>
+<script>
+    async function getAPI() {
+        try {
+            const {data} = await axios.get("http://127.0.0.1:8000/login/view", {
+                // 브라우저가 쿠키를 서버로 전달할 수 있는 옵션
+                withCredentials : true
+            });
+            console.log(data);
+            user_name.value = data.name;
+            user_age.value = data.age;
+            isLoading.classList.add("disable");
+
+            const {Boards} = data;
+            Boards.forEach((board) => {
+                let ul = document.createElement("ul");
+                let title = document.createElement("li");
+                let content = document.createElement("li");
+                let edit = document.createElement("button");
+                let del = document.createElement("button");
+
+                title.innerText = board.title;
+                content.innerText = board.content;
+                edit.innerText = "수정";
+                del.innerText = "삭제";
+
+                edit.classList.add("edit");
+                edit.classList.add(`${board.id}`);
+                del.classList.add("del");
+                del.classList.add(`${board.id}`);
+
+                ul.append(title, content, edit, del);
+                boardList.append(ul);
+            });
+
+            // 수정 버튼 이벤트리스너 추가
+            document.querySelectorAll(".edit").forEach((btn)=>{
+                btn.addEventListener("click", ()=>{
+                    const id = btn.classList[1];
+                    let input = document.createElement("input");
+                    input.setAttribute("type", "hidden");
+                    input.setAttribute("name", "id");
+                    input.setAttribute("value", id);
+                    editfrm.append(input);
+                    editfrm.submit();
+                }
+                );
+            });
+
+
+            // 삭제 이벤트 리스너 추가
+            document.querySelectorAll(".del").forEach((btn) => {
+                btn.addEventListener("click", async () => {
+                    let confirm = window.confirm("삭제하시겠습니까?");
+                    if (confirm) {
+                        const id = btn.classList[1];
+
+                        let frm = document.createElement("form");
+                        let input = document.createElement("input");
+                        frm.setAttribute("action", "http://127.0.0.1:8000/boards/del");
+                        frm.setAttribute("method", "post");
+
+                        input.setAttribute("type", "hidden");
+                        input.setAttribute("name", "id");
+                        input.setAttribute("value", id);
+
+                        frm.append(input);
+                        document.body.append(frm);
+                        frm.submit();
+
+                    }
+                })
+
+            });
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    getAPI();
+
+</script>
+</html>

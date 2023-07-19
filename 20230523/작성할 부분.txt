@@ -1,0 +1,58 @@
+user, board 부분 
+
+user
+로그인
+회원가입
+마이페이지(닉네임&비밀번호 수정, 작성한게시글댓글 조회)
+
+
+board 
+목록 조회
+추가
+조회(상세)
+수정
+삭제
+
+admin
+유저 목록 조회(가입 승인, 취소)
+
+
+----------------------------------
+DB
+
+회원 user
+id,
+user_name, pw, nick, grade, allow
+
+user_name이 env에 저장된 관리자 이름과 같으면 관리자계정
+
+
+
+게시글 board
+
+id,
+title, content, user_id, time
+(user_id : user의 id)
+
+
+댓글 comment
+id,
+content, time, board_id, user_id
+(user_id : user의 id)
+(board_id : board의 id)
+
+
+----------------
+
+
+개인 정보 바뀌면 액세스 토큰 다시 발급?????
+
+
+
+댓글 작성자 보이게
+
+어드민
+마이페이지
+
+
+

@@ -1,0 +1,47 @@
+@media only screen and (max-width : 600px) {
+    .box {
+        width : 500px;
+        height: 500px;
+        /* border: 6px solid blue; */
+        background-color: blue;
+    }
+}
+
+
+/* @media only screen and (min-width: 600px) and (max-width : 1200px) { */
+@media only screen and (max-width : 1200px) {
+
+    .box {
+        width : 500px;
+        height: 500px;
+        border: 6px solid red;
+    }
+}
+
+
+@media only screen and (min-width: 1200px) {
+    .box {
+        width : 500px;
+        height: 500px;
+        border: 6px solid green;
+    }
+}
+
+
+.box img {
+    width : 90%;
+    height: 90%;
+    animation: ani 1s ease;
+}
+
+@keyframes ani {
+    0% {
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(360deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}

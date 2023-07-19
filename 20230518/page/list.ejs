@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <a href="/insert">작성</a>
+    <form action="/" method="post">
+        <p>사용자 선택</p>
+        <% if(user && user.length != 0) { %>
+            <% user.forEach((el, index)=> { %>
+            <label for=""><%= el.name %></label>
+            <input type="radio" value="<%= el.id %>" name="user_id">
+        <% }); } %>
+        <button>확인</button>
+    </form>
+
+    <% if (data && data.length != 0) { %>
+        <table>
+        <% data.forEach((el, index) => { %>
+            <tr>
+                <td><%= el.id %></td>
+                <td><%= el.name %></td>
+                <td><%= el.content %></td>
+            </tr>
+        <% }); %>
+    </table>
+    <% } %>
+</body>
+</html>

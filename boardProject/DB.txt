@@ -1,0 +1,80 @@
+DB(board_project)
+-----
+
+사용자(User)
+id 이메일 비밀번호 닉네임
+(이메일,비밀번호, 닉네임 글자수 제한)
+
+id int pk not null
+email varchar(45)not null
+password varchar(20)not null
+nickname varchar(20)not null unique
+
+-----
+게시글(Board)
+id 제목 내용 시간 작성자
+(제목(VARCHAR), 내용(TEXT) 글자수 제한)
+id int pk not null
+title varchar(20)not null
+content text not null
+time timestamp not null default now()
+writer varchar(20)not null
+
+foreign key (writer)
+references User(nickname) on update cascade on delete cascade
+
+time insert할때 DEFALUT로 
+-----
+
+댓글(Comment)
+id 게시글id 내용 시간 이름
+
+(이름, 내용 글자수 제한)
+
+
+id int pk not null
+board_id int not null
+content text not null
+time timestamp not null default now()
+name varchar(20) not null
+
+foreign key (board_id)
+references Board(id) on delete cascade on update cascade
+
+time insert할때 DEFALUT로 
+
+
+---
+좋아요(Likes)
+아이디 사용자아이디 게시글아이디 
+
+id int pk not null
+user_id int not null
+board_id int not null
+
+foreign key (user_id)
+references User(id)
+foreign key (board_id)
+references Board(id) on delete cascade on update cascade
+
+
+
+
+------	
+
+create table User(id int not null primary key auto_increment, email varchar(45) not null, password varchar(20) not null, nickname varchar(20) not null unique);
+
+ create table Board(id int not null primary key auto_increment, title varchar(20) not null, content text not null, time timestamp not null default now(), writer varchar(20) not null unique, foreign key(writer) references User(nickname) on update cascade on delete cascade);
+
+
+create table Comment(id int not null primary key auto_increment, board_id int not null, content text not null, time timestamp not null default now(), name varchar(20) not null, foreign key (board_id) references Board(id) on delete cascade);
+
+create table Likes(id int not null primary key auto_increment, user_id int not null, board_id int not null, foreign key (user_id) references User(id),foreign key (board_id) references Board(id) on delete cascade);
+
+
+
+
+
+
+
+

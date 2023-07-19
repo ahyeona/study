@@ -1,0 +1,52 @@
+회원가입, 로그인, 게시판(목록, 추가, 상세, 삭제, 수정), 마이페이지(회원정보출력, 내가 쓴 게시글 출력)
+
+
+회원가입 (get /signup)
+- 이메일/닉네임 중복확인(post /signup/dupCheck) 
+요청객체:{type:"email"or"nickname", content : "중복확인할 이메일/닉네임"}
+- 유저 가입 (post /signup)
+
+로그인 (get /login)
+- 아이디 있는지/비밀번호 맞는지 확인
+- 로그인(post /login)
+- 액세스토큰 발급
+
+게시판[목록] (get /post/list)
+- 등록된 게시글 출력
+
+게시판[추가] (get /post/insert)
+- 게시글 추가(post /post/insert) 요청객체{title:, content:}
+
+게시글[상세](get /post/detail/:id)
+- 게시글 제목, 내용, 등록시간, 작성자 닉네임 출력
+- 현재 유저와 작성자 동일하면 수정/삭제 가능
+
+게시글[수정](get /post/update/:id)
+- 게시글 제목/내용 수정 (post /post/update/:id)
+요청객체:{title: content:}
+
+게시글[삭제](get /post/delete/:id)
+- 게시글 삭제
+
+마이페이지[회원정보출력](get /mypage/user)
+- 이메일, 닉네임 출력
+
+마이페이지[내가 쓴 게시글](get /mypage/post)
+- 현재 유저가 작성자인 게시글 목록 출력
+
+----------------------------
+
+DB 이름 : reacttoypost
+
+User
+- email
+- nickname
+- password
+
+Post
+- title
+- content
+- userid (User 외래키)
+
+
+

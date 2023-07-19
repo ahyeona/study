@@ -1,0 +1,8 @@
+0711 한 일
+
+요구사항 작성 (할 일 정리)
+
+백엔드 기능 작성 완료(models, controllers, routers, middleware, app.js ...)
+(회원가입 로그인 게시판 마이페이지)
+
+프론트 백엔드 연결해봄 (axios로 로그인 처리)

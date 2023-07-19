@@ -1,0 +1,26 @@
+0613 할 일
+
+마이페이지(정보 변경)
+
+프론트엔드 이미지 한곳에 모으기
+
+---------------------
+
+마이페이지(정보 변경, 예매관리)
+
+const path = require("path");
+
+// signUp 페이지
+
+router.get("/", (req, res) => {
+  res.sendFile(
+    path.join(__dirname, "..", "..", "FrontEnd", "signUp", "signUp.html")
+  );
+});
+
+
+const loginRouter = require("./routers/login");
+const mypageRouter = require("./routers/mypage");
+const mailRouter = require("./routers/mail");
+const { isLogin } = require("./middleware/islogin");
+const adminPageRouter = require("./routers/adminMypage");
