@@ -10,7 +10,7 @@
 
 let subText = "";
 let userMoney = 20000;
-let count = 0 
+let count = 0;
 
 
 while (userMoney > 0 && count <= 20) {
