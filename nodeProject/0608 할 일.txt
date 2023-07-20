@@ -1,8 +1,0 @@
-0608 할 일
-
-freeboardinsert/freeboardupdate
-reviewboard
-
-html 만들기
-
-완료
