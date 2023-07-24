@@ -2,8 +2,8 @@ import {createSlice, createAsyncThunk} from "@reduxjs/toolkit"
 import axios from 'axios'
 
 // 로그인
-export const login = createAsyncThunk("/", async (user_id, user_pw)=>{
-    const {data} = await axios.post("http://127.0.0.1:8080/user/login", {user_id, user_pw}, {withCredentials : true});
+export const login = createAsyncThunk("/login", async ({user_id, user_pw})=>{
+    const {data} = await axios.post("http://localhost:8080/user/login", {user_id, user_pw}, {withCredentials: true});
 
     console.log(data)
     return data;
@@ -11,9 +11,9 @@ export const login = createAsyncThunk("/", async (user_id, user_pw)=>{
 
 
 // 중복확인
-export const dupChk = createAsyncThunk("/", async (user_id)=>{
+export const dupChk = createAsyncThunk("/dupChk", async (user_id)=>{
 
-    const {data} = await axios.post("http://127.0.0.1:8080/user/dupChk", {user_id}, {withCredentials : true});
+    const {data} = await axios.post("http://localhost:8080/user/dupChk", {user_id}, {withCredentials: true});
 
     console.log(data)
     return data;
@@ -21,8 +21,8 @@ export const dupChk = createAsyncThunk("/", async (user_id)=>{
 
 
 // 회원가입
-export const signUp = createAsyncThunk("/", async (user_id, user_pw)=>{
-    const {data} = await axios.post("http://127.0.0.1:8080/user/signup", {user_id, user_pw}, {withCredentials : true});
+export const signUp = createAsyncThunk("/signup", async ({user_id, user_pw})=>{
+    const {data} = await axios.post("http://localhost:8080/user/signup", {user_id, user_pw}, {withCredentials: true});
 
     console.log(data)
     return data;

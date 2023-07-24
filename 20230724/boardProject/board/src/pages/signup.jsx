@@ -6,7 +6,7 @@ const Signup = () => {
   const dispatch = useDispatch();
 
   const dupChkText = useSelector((state) => state.dupchk.value);
-  const dupChk = useSelector((state) => state.dupchk.dup);
+  const dupChkBool = useSelector((state) => state.dupchk.dup);
 
   // 중복확인
   const dupBtnEvent = () => {
@@ -15,13 +15,13 @@ const Signup = () => {
 
   // 회원가입
   const signUpBtnEvent = () => {
-    if (dupChk) {
+    if (dupChkBool) {
       // 중복확인 완료
       dispatch(
-        signUp(
-          document.querySelector("#userIdInput").value,
-          document.querySelector("#userPwInput").value
-        )
+        signUp({
+          user_id: document.querySelector("#userIdInput").value,
+          user_pw: document.querySelector("#userPwInput").value,
+        })
       );
     } else {
       // 중복확인에서 통과 못함

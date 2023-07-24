@@ -1,6 +1,7 @@
 const { User } = require("../models");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const { ConnectionRefusedError } = require("sequelize");
 
 // 로그인
 exports.login = async (req, res) => {
@@ -38,7 +39,7 @@ exports.dupChk = async (req, res) => {
 
     const user = await User.findOne({ where: { user_id } });
 
-    console.log("usercontroller 중복확인",user_id)
+    console.log("usercontroller 중복확인", user_id);
 
     // 이미 존재하는 아이디
     if (user) {
@@ -56,11 +57,12 @@ exports.dupChk = async (req, res) => {
 exports.signUp = async (req, res) => {
   try {
     const { user_id, user_pw } = req.body;
+    console.log("회원가입", user_id, user_pw);
 
-    const pw = bcrypt.hashSync(user_pw, 10)
+    const pw = bcrypt.hashSync(user_pw, 10);
 
     await User.create({ user_id, user_pw: pw });
-    console.log("usercontroller",user_id, user_pw)
+    console.log("usercontroller", user_id, user_pw);
     return res.json({ message: "회원가입 완료" });
   } catch (error) {
     console.log(error);

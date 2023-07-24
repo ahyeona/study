@@ -25,7 +25,7 @@ export const temp = createAsyncThunk("/temp", async (name) => {
   // axios
   // npm i axios
   const resp = await axios.get(
-    `https://api.openweathermap.org/data/2.5/weather?q=${name}&appid=68f0ac440b9457447e8499236d8da835`
+    `https://api.openweathermap.org/data/2.5/weather?q=${name}&appid=`
   );
   const { data } = resp;
   console.log(data);
@@ -59,13 +59,13 @@ export const countSlice2 = createSlice({
 
     // 로딩중 케이스
     builder.addCase(temp.pending, (state, action) => {
-        // console.log(action)
+      // console.log(action)
       state.value = "로딩중";
     });
 
     // 완료되었을 때 케이스
     builder.addCase(temp.fulfilled, (state, action) => {
-      console.log(action)
+      console.log(action);
       state.value = "완료됨";
       state.num += 1;
     });
