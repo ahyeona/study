@@ -1,5 +1,4 @@
-const {Board} = require("../models");
-const { findOne } = require("../models/users");
+const {Board, User} = require("../models");
 
 // 게시글 전체
 exports.getAllBoards = async (req, res) => {
@@ -9,18 +8,21 @@ exports.getAllBoards = async (req, res) => {
         return res.json(list)
     } catch (error) {
         console.log(error)
+        return res.json({error})
     }
 }
 
 // 게시글 상세
 exports.getDetailBoard = async (req, res) => {
     try {
-        const {id} = req.params
-        const {user_id} = req.decoded;
+        const { id } = req.params;
+        console.log("게시글 상세",id)
+        const current_user = req.decoded.id;
 
-        const board = await findOne({where : {id}});
+        const board = await Board.findOne({where : {id}, include : {model:User, attributes:['user_id']} });
+        console.log(board);
         let writer;
-        if (board.writer == user_id) {
+        if (board.writer == current_user) {
             writer = true;
         } else {
             writer = false;
@@ -29,6 +31,7 @@ exports.getDetailBoard = async (req, res) => {
         return res.json({board, writer});
     } catch (error) {
         console.log(error)
+        return res.json({error})
 
     }
 }
@@ -38,9 +41,9 @@ exports.getDetailBoard = async (req, res) => {
 exports.postBoard = async (req, res) => {
     try {
         const {title, content} = req.body;
-        const {user_id} = req.decoded;
-
-        const board = await Board.create({title, content, writer:user_id});
+        const current_user = req.decoded.id;
+        console.log(req.decoded)
+        const board = await Board.create({title, content, writer:current_user});
 
         console.log(board);
 
@@ -48,6 +51,7 @@ exports.postBoard = async (req, res) => {
         return res.json(board);
     } catch (error) {
         console.log(error)
+        return res.json({error})
 
     }
 }
@@ -64,6 +68,7 @@ exports.editBoard = async (req, res) => {
 
     } catch (error) {
         console.log(error)
+        return res.json({error})
 
     }
 }
@@ -76,6 +81,7 @@ exports.deleteBoard = async (req, res) => {
         return res.json();
     } catch (error) {
         console.log(error)
+        return res.json({error})
 
     }
 }

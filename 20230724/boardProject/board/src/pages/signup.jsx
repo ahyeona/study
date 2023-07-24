@@ -1,12 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { dupChk, signUp } from "../features/userSlice";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const dispatch = useDispatch();
+  const nav = useNavigate();
 
   const dupChkText = useSelector((state) => state.dupchk.value);
   const dupChkBool = useSelector((state) => state.dupchk.dup);
+  const signUpState = useSelector((state)=>state.signup.result);
+
+  useEffect(()=>{
+    if (signUpState) {
+      nav("/");
+    }
+  }, [signUpState]);
 
   // 중복확인
   const dupBtnEvent = () => {

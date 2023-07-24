@@ -9,7 +9,7 @@ exports.login = async (req, res) => {
     const { user_id, user_pw } = req.body;
     const user = await User.findOne({ where: { user_id } });
 
-    if (user) {
+    if (!user) {
       return res.json({ error: "아이디 없음" });
     }
 
@@ -19,7 +19,7 @@ exports.login = async (req, res) => {
     }
 
     // 액세스토큰 생성
-    const token = jwt.sign({ user_id }, process.env.ACCESSTOKEN_KEY, {
+    const token = jwt.sign({ id:user.id, user_id }, process.env.ACCESSTOKEN_KEY, {
       expiresIn: "15m",
     });
 

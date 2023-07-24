@@ -14,8 +14,6 @@ export const login = createAsyncThunk("/login", async ({user_id, user_pw})=>{
 export const dupChk = createAsyncThunk("/dupChk", async (user_id)=>{
 
     const {data} = await axios.post("http://localhost:8080/user/dupChk", {user_id}, {withCredentials: true});
-
-    console.log(data)
     return data;
 })
 
@@ -34,19 +32,18 @@ export const loginSlice = createSlice({
     name: "login",
 
     // 초기값
-    initialState : {value: "로그인 안 함", user_id : ""},
+    initialState : {value: "", user_id : "", result:false},
 
     extraReducers : (builder) => {
 
         builder.addCase(login.fulfilled, (state, action) => {
-            if (action.error) {
-                console.log(action)
-                console.log(action.error)
-                state.value = action.error
+            if (action.payload.error) {
+                state.value = action.payload.error
+                state.result = false;
             } else {
-                console.log("로그인 성공")
+                console.log("로그인 성공", action.payload.user_id)
                 state.user_id = action.payload.user_id;
-                console.log(action.payload)
+                state.result = true;
             }
         })
 
@@ -66,7 +63,8 @@ export const dupChkSlice = createSlice({
             state.value  = "중복확인 중"
         });
         builder.addCase(dupChk.fulfilled, (state, action)=>{
-            if (action.error) {
+            console.log(action);
+            if (action.payload.error) {
                 state.value  = "사용 불가능한 아이디"
                 state.dup = false;
             } else {
@@ -83,15 +81,15 @@ export const signUpSlice = createSlice({
     name: "signUp",
 
     // 초기값
-    initialState : {value: ""},
+    initialState : {value: "", result:false},
 
     extraReducers : (builder) => {
         builder.addCase(signUp.fulfilled, (state, action) => {
-            if (action.error) {
-                console.log(action)
-                console.log(action.error)
-                state.value = action.error
+            if (action.payload.error) {
+                console.log(action.payload.error)
+                state.value = action.payload.error
             } else {
+                state.result = true;
                 console.log("회원가입 성공")
             }
         })
