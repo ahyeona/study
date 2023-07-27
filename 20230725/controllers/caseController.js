@@ -80,6 +80,17 @@ exports.getDetailCase = async (req, res) => {
         data.dataValues.view_count += 1;
         await Case.update({ view_count : data.dataValues.view_count}, {where: {id : data.dataValues.id}});
 
+        // result 단위 변환
+        const year = Math.floor(data.dataValues.result / 12);
+        const month = data.dataValues.result % 12;
+        let str = "";
+        if (year == 0) {
+            str = month + "개월"
+        } else {
+            str = year+"년 "+ month + "개월"
+        }
+        data.dataValues.resultStr = str;
+
         // 관심판례였는지 여부 반환
         let isInterested=false;
         if (isLogin) {
