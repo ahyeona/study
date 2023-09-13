@@ -1,3 +1,4 @@
+// 코딩테스트 문제 : 카드뭉치
 function solution(cards1, cards2, goal) {
     var answer = 'Yes';
 
