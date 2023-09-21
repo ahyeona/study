@@ -12,9 +12,10 @@ describe("전체 흐름 이해", ()=>{
         // 1. 한 개의 지갑을 생성
         const wallet = new Wallet();
         console.log(wallet.account);
+        
 
         // 2. 지갑 주소로 블록을 생성(마이닝)
-        // const chain = new Chain();
+        const chain = new Chain();
 
         const block = Block.generateBlock(GENESIS, [wallet.account], GENESIS);
         console.log(block);
