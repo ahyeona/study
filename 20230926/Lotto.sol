@@ -10,7 +10,6 @@ contract Lotto {
     constructor() {
         lottoArr = new uint256[](0);
         lottoHistory = new uint256[][](0);
-        lottoHistory.push([1,2,3,4,5,6]);
     }
 
     function getValue() public view returns(uint256) {
@@ -42,37 +41,45 @@ contract Lotto {
             return false;
     }
 
+    // 로또 추첨
+    function draw(uint256 count) public {
+        for (uint256 i = 0; i < count; i++) {
+            uint256 randNonce = i; // randNonce를 각 반복마다 증가
+            uint256 num = uint256(keccak256(abi.encodePacked(block.timestamp, msg.sender, randNonce))) % 45;
+            num++;
+
+            // 중복 확인
+            bool dup = findNumber(num);
+
+            if (dup == false) {
+                lottoArr.push(num);
+            }
+        }
+
+    }
+
     // 추첨
     function setLottoArr() public {
-        lottoArr = new uint256[](0);
+        // lottoArr = new uint256[](0);
 
-        lottoArr.push(2);
-        lottoArr.push(2);
-        lottoArr.push(3);
-        lottoArr.push(3);
-        lottoArr.push(5);
-        lottoArr.push(5);
-        // while(lottoArr.length < 6) {
-        //     // 랜덤 정수 생성
-        //     // uint256 num;
-        //     bool dup;
+        // draw(6);
 
-        //     // num =
-        //     uint256 randNonce = 0;
-        //     uint256 num = uint256(keccak256(abi.encodePacked(block.timestamp, msg.sender, randNonce))) % 45;
-        //     // uint256 num = uint256(keccak256(now)) % 45;
-        //     num++;
-
-        //     // 중복 확인
-        //     dup = findNumber(num);
-
-        //     if (dup == false) {
-        //         lottoArr.push(num);
-        //     }
+        // if (lottoArr.length < 6) {
+        //     draw(6 - lottoArr.length);
         // }
 
-        lottoHistory.push(lottoArr);
-    }
+        // lottoHistory[lottoHistory.length - 1] = lottoArr;
+
+        uint256[] memory newLottoArr = new uint256[](0);
+
+        draw(6);
+
+        if (newLottoArr.length < 6) {
+            draw(6 - newLottoArr.length);
+        }
+
+        lottoHistory.push(newLottoArr);
+        }
 }
 
 

@@ -8,27 +8,9 @@ function App() {
   const [ca, setCa] = useState(null);
   const [contractCode, setContractCode] = useState(null);
 
-//   const abi = [
-//     {"inputs":[],"stateMutability":"nonpayable","type":"constructor"},
-//     {"inputs":[{"internalType":"uint256","name":"num","type":"uint256"}],"name":"findNumber","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},
-//     {"inputs":[],"name":"getLottoArr","outputs":[{"internalType":"uint256[]","name":"","type":"uint256[]"}],"stateMutability":"view","type":"function"},
-//     {"inputs":[],"name":"getLottoHistory","outputs":[{"internalType":"uint256[][]","name":"","type":"uint256[][]"}],"stateMutability":"view","type":"function"},
-//     {"inputs":[],"name":"setLottoArr","outputs":[],"stateMutability":"nonpayable","type":"function"}
-// ]
-
-//   const abi = [
-//     {"inputs":[],"stateMutability":"nonpayable","type":"constructor"},
-//     {"inputs":[{"internalType":"uint256","name":"num","type":"uint256"}],"name":"findNumber","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},
-//     {"inputs":[],"name":"getLottoArr","outputs":[{"internalType":"uint256[]","name":"","type":"uint256[]"}],"stateMutability":"view","type":"function"},
-//     {"inputs":[],"name":"getLottoHistory","outputs":[{"internalType":"uint256[][]","name":"","type":"uint256[][]"}],"stateMutability":"view","type":"function"},
-//     {"inputs":[],"name":"getValue","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},
-//     {"inputs":[],"name":"setLottoArr","outputs":[],"stateMutability":"nonpayable","type":"function"},
-//     {"inputs":[{"internalType":"uint256","name":"_value","type":"uint256"}],"name":"setValue","outputs":[],"stateMutability":"nonpayable","type":"function"}
-// ]
-
-
 const abi = [
   {"inputs":[],"stateMutability":"nonpayable","type":"constructor"},
+  {"inputs":[{"internalType":"uint256","name":"count","type":"uint256"}],"name":"draw","outputs":[],"stateMutability":"nonpayable","type":"function"},
   {"inputs":[{"internalType":"uint256","name":"num","type":"uint256"}],"name":"findNumber","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},
   {"inputs":[],"name":"getLottoArr","outputs":[{"internalType":"uint256[]","name":"","type":"uint256[]"}],"stateMutability":"view","type":"function"},
   {"inputs":[],"name":"getLottoHistory","outputs":[{"internalType":"uint256[][]","name":"","type":"uint256[][]"}],"stateMutability":"view","type":"function"},
@@ -39,12 +21,12 @@ const abi = [
 
   useEffect(()=>{
     (async ()=>{
-      const [data] = await window.ethereum.request({
+      const data = await window.ethereum.request({
         method : "eth_requestAccounts"
       });
-
+      console.log(data);
       setWeb3(new Web3(window.ethereum));
-      setAccount(data);
+      setAccount(data[0]);
     })();
   }, []);
 
@@ -68,17 +50,13 @@ const abi = [
 
   // 로또 추첨
   const draw = async () => {
-    const codeHash = await web3.eth.abi.encodeFunctionCall(abi[5], []);
-    // const codeHash = await web3.eth.abi.encodeFunctionCall(abi[4], []);
-    console.log("codeHash", codeHash);
-    console.log("account", account);
-    console.log("ca", ca);
+    const codeHash = await web3.eth.abi.encodeFunctionCall(abi[6], []);
     const data = await web3.eth.sendTransaction({
       from : account,
       to : ca,
       data : codeHash,
-      gas : 500000000,
-      gasPrice : 20000000000,
+      gas : 5000000,
+      gasPrice : 200000000,
     });
 
     console.log("data :", data);
@@ -86,10 +64,7 @@ const abi = [
 
   // 결과 보기
   const getResult = async () => {
-    console.log("결과 보기");
-
-    const codeHash = await web3.eth.abi.encodeFunctionCall(abi[2], []);
-    // const codeHash = await web3.eth.abi.encodeFunctionCall(abi[2], []);
+    const codeHash = await web3.eth.abi.encodeFunctionCall(abi[3], []);
 
     const data = await web3.eth.call({
       to : ca,
@@ -98,34 +73,42 @@ const abi = [
 
     console.log("data",data);
 
-    const lottoArrStr = web3.utils.hexToAscii(data);
-    console.log("lottoArrStr", lottoArrStr);
-    const lottoArr = JSON.parse(lottoArrStr);
-    console.log("Lotto Array:", lottoArr);
+    const dataArray = data.slice(2).match(/.{1,64}/g); // 16진수 문자열을 64자리 단위로
+    const lottoArr = dataArray.map(hexValue => parseInt(hexValue, 16).toString());
 
-
+    console.log("lottoArr", lottoArr);
   }
 
   // 추첨 내역 보기
   const getHistory = async () => {
-    const codeHash = await web3.eth.abi.encodeFunctionCall(abi[3], []);
+    const codeHash = await web3.eth.abi.encodeFunctionCall(abi[4], []);
 
     const data = await web3.eth.call({
       to : ca,
       data : codeHash
     });
 
-    console.log(data);
+    const dataArray = data.slice(2).match(/.{1,64}/g); // 16진수 문자열을 64자리 단위로
+    const lottoHistory = [];
 
-    // const result = await web3.utils.toBN(data).toString(10);
-    const lottoHistoryStr = web3.utils.hexToAscii(data);
-    const lottoHistory = JSON.parse(lottoHistoryStr);
-    console.log("Lotto History:", lottoHistory);
+    for (let i = 0; i < dataArray.length; i++) {
+        const hexValue = dataArray[i];
+        const decimalValue = parseInt(hexValue).toString(10);
+        lottoHistory.push(decimalValue);
+    }
+
+    const doubleArray = [];
+    for (let i = 0; i < lottoHistory.length; i += 6) {
+        const subArray = lottoHistory.slice(i, i + 6);
+        doubleArray.push(subArray);
+    }
+
+    console.log("Lotto History:", doubleArray);
 
   }
 
   const getValue = async () => {
-    const codeHash = await web3.eth.abi.encodeFunctionCall(abi[4], []);
+    const codeHash = await web3.eth.abi.encodeFunctionCall(abi[5], []);
 
     const data = await web3.eth.call({
       to : ca,
@@ -136,7 +119,7 @@ const abi = [
   }
 
   const setValue = async () => {
-    const codeHash = await web3.eth.abi.encodeFunctionCall(abi[6], [4]);
+    const codeHash = await web3.eth.abi.encodeFunctionCall(abi[7], [4]);
 
     const data = await web3.eth.sendTransaction({
       from : account,
