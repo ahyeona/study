@@ -42,7 +42,7 @@ contract Lotto {
     }
 
     // 로또 추첨
-    function draw(uint256 count) public {
+    function draw(uint256 count) public returns(uint256[] memory) {
         for (uint256 i = 0; i < count; i++) {
             uint256 randNonce = i; // randNonce를 각 반복마다 증가
             uint256 num = uint256(keccak256(abi.encodePacked(block.timestamp, msg.sender, randNonce))) % 45;
@@ -55,12 +55,13 @@ contract Lotto {
                 lottoArr.push(num);
             }
         }
+        return lottoArr;
 
     }
 
     // 추첨
     function setLottoArr() public {
-        // lottoArr = new uint256[](0);
+        lottoArr = new uint256[](0);
 
         // draw(6);
 
@@ -72,10 +73,10 @@ contract Lotto {
 
         uint256[] memory newLottoArr = new uint256[](0);
 
-        draw(6);
+        newLottoArr = draw(6);
 
         if (newLottoArr.length < 6) {
-            draw(6 - newLottoArr.length);
+            newLottoArr = draw(6 - newLottoArr.length);
         }
 
         lottoHistory.push(newLottoArr);

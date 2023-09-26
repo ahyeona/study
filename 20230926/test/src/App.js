@@ -8,9 +8,20 @@ function App() {
   const [ca, setCa] = useState(null);
   const [contractCode, setContractCode] = useState(null);
 
+// const abi = [
+//   {"inputs":[],"stateMutability":"nonpayable","type":"constructor"},
+//   {"inputs":[{"internalType":"uint256","name":"count","type":"uint256"}],"name":"draw","outputs":[],"stateMutability":"nonpayable","type":"function"},
+//   {"inputs":[{"internalType":"uint256","name":"num","type":"uint256"}],"name":"findNumber","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},
+//   {"inputs":[],"name":"getLottoArr","outputs":[{"internalType":"uint256[]","name":"","type":"uint256[]"}],"stateMutability":"view","type":"function"},
+//   {"inputs":[],"name":"getLottoHistory","outputs":[{"internalType":"uint256[][]","name":"","type":"uint256[][]"}],"stateMutability":"view","type":"function"},
+//   {"inputs":[],"name":"getValue","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},
+//   {"inputs":[],"name":"setLottoArr","outputs":[],"stateMutability":"nonpayable","type":"function"},
+//   {"inputs":[{"internalType":"uint256","name":"_value","type":"uint256"}],"name":"setValue","outputs":[],"stateMutability":"nonpayable","type":"function"}
+// ]
+
 const abi = [
   {"inputs":[],"stateMutability":"nonpayable","type":"constructor"},
-  {"inputs":[{"internalType":"uint256","name":"count","type":"uint256"}],"name":"draw","outputs":[],"stateMutability":"nonpayable","type":"function"},
+  {"inputs":[{"internalType":"uint256","name":"count","type":"uint256"}],"name":"draw","outputs":[{"internalType":"uint256[]","name":"","type":"uint256[]"}],"stateMutability":"nonpayable","type":"function"},
   {"inputs":[{"internalType":"uint256","name":"num","type":"uint256"}],"name":"findNumber","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},
   {"inputs":[],"name":"getLottoArr","outputs":[{"internalType":"uint256[]","name":"","type":"uint256[]"}],"stateMutability":"view","type":"function"},
   {"inputs":[],"name":"getLottoHistory","outputs":[{"internalType":"uint256[][]","name":"","type":"uint256[][]"}],"stateMutability":"view","type":"function"},
@@ -18,6 +29,7 @@ const abi = [
   {"inputs":[],"name":"setLottoArr","outputs":[],"stateMutability":"nonpayable","type":"function"},
   {"inputs":[{"internalType":"uint256","name":"_value","type":"uint256"}],"name":"setValue","outputs":[],"stateMutability":"nonpayable","type":"function"}
 ]
+
 
   useEffect(()=>{
     (async ()=>{
@@ -75,6 +87,12 @@ const abi = [
 
     const dataArray = data.slice(2).match(/.{1,64}/g); // 16진수 문자열을 64자리 단위로
     const lottoArr = dataArray.map(hexValue => parseInt(hexValue, 16).toString());
+
+    document.querySelector('.lottoResult').innerHTML = "<ul>";
+    for (let i = 2; i < lottoArr.length; i++) {
+      document.querySelector('.lottoResult').innerHTML += `<li>${lottoArr[i]}</li>`;
+    }
+    document.querySelector('.lottoResult').innerHTML += "</ul>";
 
     console.log("lottoArr", lottoArr);
   }
@@ -142,6 +160,7 @@ const abi = [
       <button onClick={getResult}>결과 보기</button>
       <button onClick={getHistory}>이전 결과 보기</button>
 
+      <div className='lottoResult'></div>
       <div>
         <button onClick={getValue}>value보기</button>
         <button onClick={setValue}>value설정</button>
