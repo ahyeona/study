@@ -89,8 +89,8 @@ const abi = [
     const lottoArr = dataArray.map(hexValue => parseInt(hexValue, 16).toString());
 
     document.querySelector('.lottoResult').innerHTML = "<ul>";
-    for (let i = 2; i < lottoArr.length; i++) {
-      document.querySelector('.lottoResult').innerHTML += `<li>${lottoArr[i]}</li>`;
+    for (let i = 0; i < 6; i++) {
+      document.querySelector('.lottoResult').innerHTML += `<li>${lottoArr[lottoArr.length - 1 - i]}</li>`;
     }
     document.querySelector('.lottoResult').innerHTML += "</ul>";
 
