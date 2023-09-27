@@ -55,6 +55,22 @@ contract Lotto {
                 lottoArr.push(num);
             }
         }
+
+        // 두번째 방법
+        // // 위 코드에서 대신
+        // // 1~45가 담긴 배열 arr이 있다고 쳤을때 작성하는 코드
+        // for (uint256 i = 0; i < 6; i++) {
+        //     uint256 randNonce = i; // randNonce를 각 반복마다 증가
+        //     uint256 num = uint256(keccak256(abi.encodePacked(block.timestamp, msg.sender, randNonce))) % arr.length;
+
+        //     arr[num] = arr[arr.length - 1];
+        //     arr.pop();
+
+        //     // 중복확인 필요없음
+        //     lottoArr.push(arr[num]);
+        // }
+
+
         return lottoArr;
 
     }
@@ -80,6 +96,12 @@ contract Lotto {
         }
 
         lottoHistory.push(newLottoArr);
+
+
+        // // 두번째 방법
+        // draw(6);
+        // lottoHistory.push(lottoArr);
+
         }
 }
 
