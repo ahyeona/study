@@ -231,3 +231,95 @@ npx truffle init
 ```
 - npx truffle init을 하면 초기 세팅을 도와준다. 3개의 폴더가 생김
 
+1. contracts : 솔리디티 코드를 작성한 sol 파일들을 담을 폴더. 컴파일을 진행하면 이 폴더에 있는 sol파일을 읽어서 컴파일을 진행. build 폴더가 생기고 컴파일된 내용이 json파일로 생성된다.
+2. migrations : 컨트랙트 배포를 진행할 js 코드 작성. 이더리움 네트워크에 배포하는 내용을 작성할 js를 이 폴더에
+3. test : 테스트 파일을 작성할 폴더
+
+- truffle-config.js 파일 수정
+- 환경 세팅
+
+```json
+module.exports = {
+  networks: {
+    development: {
+     host: "127.0.0.1",     // Localhost (default: none)
+     port: 8545,            // Standard Ethereum port (default: none)
+     network_id: "*",       // Any network (default: none)
+    },
+  },
+
+  compilers: {
+    solc: {
+      version: "0.8.13",
+    }
+  },
+};
+```
+
+# 컴파일
+- 솔리디티 코드 작성. contracts 폴더에 sol파일 생성
+- 컴파일 명령어
+```sh
+npx truffle compile
+```
+- build 폴더가 생기고 컴파일된 내용이 생성된 json파일에 작성되어 있음
+
+# 배포
+- ganache-cli
+```sh
+npm i ganache-cli
+npx ganache-cli
+```
+
+- migrations 폴더 안에 배포 코드 작성
+- 파일명 규칙 있음
+- 파일명 : [번호]_[내용]_[컨트랙트 이름].js
+- 1_deploy_Counter.js 이렇게 작성
+
+- 배포 명령어
+```sh
+npx truffle migrate
+```
+
+- 배포한 CA 확인
+- 0x6cCb7c17B5dAdd6FBE7B480bd5312B4Df20F762E
+
+- CA로 요청을 보내서 call send 통해 원격 프로시저 실행을 할 수 있는데
+
+- truffle 콘솔에서 확인해보고 싶은데
+```sh
+npx truffle console
+```
+
+- 콘솔창에 코드를 작성해서 call send를 테스트해볼 수 있음
+```javascript
+// Counter라는 컨트랙트가 배포된 것에서 마지막으로 배포된 컨트랙트를 접근
+// 접근하는 동안 비동기 처리
+// instance === 배포한 Counter 컨트랙트에 접근해서 인스턴스를 매개변수로 받음
+// counter 변수를 선언하고 instance를 담아준다.
+Counter.deployed().then((instance) => (counter = instance));
+// counter 배포된 컨트랙트의 인스턴스가 담겨있고 call과 send가 메서드로 포함되어 있다.
+counter.getValue(); // call 요청을 보내자
+// BN 객체는 매우 큰 숫자를 명시함. 매우 큰 숫자를 다룰 때 사용됨
+// 특히 블록체인 같은 분산 원장 기술에서 자주 사용
+// BN { negative: 0, words: [ 0, <1 empty item> ], length: 1, red: null }
+// words: [ 0, <1 empty item> ]
+// 아이템 하나 있고 값은 0이다.
+
+counter.setValue(20); // send 요청을 보내자
+// send 가스비 발생
+
+// counter.getValue();
+// BN { negative: 0, words: [ 20, <1 empty item> ], length: 1, red: null }
+// 값이 수정되어서 20으로 변경됨
+```
+
+# 테스트 코드 작성
+```sh
+# 테스트 코드 실행
+npx truffle test
+
+```
+
+
+<!-- 0x520a392C7222AACf0402812A29bB99FC98D8c81a -->
