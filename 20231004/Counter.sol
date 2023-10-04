@@ -3,6 +3,7 @@ pragma solidity ^0.8.13;
 
 contract Counter {
     uint256 value; // 상태 변수 (uint : 부등호가 없는 정수)
+    address sender = 0x0000000000000000000000000000000000000000;
 
     constructor() {}
 

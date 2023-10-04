@@ -64,13 +64,170 @@ contract Counter {
 
     // enum 타입
     // 개발자가 가독성 높이기 위해서 사용하는 자료형
-    
+    // 상수를 사용하면서 가독성을 높이기 위해서 사용
+    enum Status {
+        Pending, // 0
+        Accepted, // 1
+        Rejected, // 2
+    }
+
+    // status 초기값은 0
+    Status public status;
+    // status.Pending === 0
+    // status.Accepted === 1
+    // status.Rejected === 2
+
+    // enum의 상태를 조회
+    function get() public view returns(Status) {
+        return status;
+    }
+
+    // enum의 상태를 변경
+    function set(Status _status) public {
+        status = _status;
+    }
+
+    // string 문자열 자료형
+    string Str = "hello sol";
+
+    // address 주소형
+    // 우리가 지갑을 만들때 봤던 주소
+    // 주소의 크기는 20바이트 크기. 컨트랙트 주소를 저장할 때 사용하는 자료형
+    address sender = 0x0000000000000000000000000000000000000000;
+    // sender.balance === 해당 주소의 이더 잔액을 조회할 수 있음
+    // sender.transfer("보낼 금액");
+    // sender.send("보낼 금액");
+
+    // balance property가 있어서 주소의 이더 잔액을 확인 가능
+    // 메서드 transfer, send 메서드를 사용해서 이더 전송 가능
+
+    // 배열의 타입
+    // 실행중에 배열의 크기 변경 가능
+    string[] strArr = ["1", "2", "3"];
+
+    // 배열의 크기 지정
+    // 배열의 크기가 선언할 때 지정
+    string[2] strArr2 = ["1", "2"];
+
+    // 구조체 struct
+    struct Struct {
+        string name;
+        uint number;
+    }
+
+    // 구조를 정의
+
+    // 매핑 key-value 키와 값을 저장할때 사용하는 데이터 타입
+    mapping (address => uint256) tokens;
+    tokens {
+        address : 10000
+    }
+    // address가 key
+    // uint256이 value
+
+    mapping (string => mapping(address => uint256)) token2;
+    token2 {
+        // string이 key
+        // mapping(address => uint256)이 value
+        // 이 mapping에서는 address가 key, uint256이 value
+        string : {
+            address : 10000
+            address2 : 10000
+        }
+        string2 : {
+            address : 10000
+            address2 : 10000
+        }
+    }
+
+    // 글로벌 변수
+    function a(address payable _to) public payable {
+        // address payable 선언식
+        // _to 매개변수 이름
+
+        // payable : 이더리움을 보낼건지, 결제를 할 건지 결제처리를 한다는 처리문
+        // 이더리움을 받거나 보낼때??
+
+        // 이더리움 블록체인 정보
+        // block
+        block.coinbase; // 현재 블록을 채굴한 account의 주소
+        block.difficulty; // 현재 블록의 난이도
+        block.gaslimit; // 현재 블록이 사용 가능한 최대 gas 값
+        block.number; // 블록의 높이
+        block.timestamp; // 블록 생성 시간
+
+        // msg 컨트랙트에서 message call 했을 때 컨트랙트에 전달된 메시지 정보를 가지고 있는 객체
+        msg.sender; // 컨트랙트 호출한 account의 주소
+        msg.value; // 메시지로 전달받은 이더리움의 단위가 wei단위로 담겨 있음
+        msg.data; // 컨트랙트 call로 실행할 때 보낸 데이터의 내용
+        msg.sig; // 전달받은 데이터의 첫 4바이트 === 어떤 메소드를 실행시켰는지 확인
+
+        // address
+        _to.balance; // 계정의 잔고
+        uint amount = 10**18;
+        _to.transfer(amount); // 해당 주소에 이더를 보냄
+        _to.send(amount); // 해당 주소에 이더를 보냄
+
+    }
+
+    // 함수의 구조
+    function name(uint a) public view returns (uint) {
+
+    }
+
+    // name : 함수명
+    // uint a : 타입 매개변수명
+    // public : 함수의 접근자
+
+    // 접근자의 타입
+    // 1. public : 외부에서 호출 가능. 외부 컨트랙트나 계정에서 호출 가능 EOA나 CA에서 호출 가능
+    // 2. private : 현재 컨트랙트에서만 호출 가능
+    // 3. Internal : 내부 함수는 컨트랙트에서 접근할 수 있고, 외부에서는 안됨. 다른 컨트랙트에서 상속받아서는 호출 가능
+    // 4. External : public같은 타입
+
+    // view : 접근 지정자
+
+    // 접근 지정자
+    // 상태변수를 변경, 선언, 솔리디티 언어의 특징
+    // view : 상태변수 읽기 전용. 변경 불가능
+    // pure : 상태변수 읽기도 안되고 변경도 안됨. 순수하게 전달받은 매개변수로만 함수의 동작을 하고 싶은 경우에 사용
+    // payable : 결제를 처리할 수 있다는 선언, 이더를 전송하는데 선언을 하지 않으면 거부됨 reject
+
+    // 조건문 작성
+    // require : 주어진 조건을 검사해서 만족이 되면 구문 통과, 안되면 reject 발생 이전상태로 되돌림
+    // gas 반환됨 (지불한 gas 반환됨?)
+    // if문같이 조건처리할 때 사용
+    require(조건문);
+    // 조건문이 잘 통과되면 동작해야 할 구문
+
+    // 컨트랙트 배포자가
+    // 계약 파기하고 싶을 때
+
+    // sender 배포자의 주소를 받을 변수. 이더를 전송받을 수 있다.(payable이 있기 때문)
+    address payable sender;
+
+    require(msg.sender == sender);
+    // selfdestruct
+    selfdestruct(sender);
+    // selfdestruct(지갑 주소) : 현재 계약을 파기하고, 전달받은 매개변수 주소로 CA의 잔액을 전송한다.
+    // selfdestruct(CA 주소) : 계약을 파기하고 전달된 CA에 잔액을 전송할 수 있다.
 
 }
 
 ```
 
+# Truffle
 
+- Dapp 개발을 쉽게 할 수 있도록 도와주는 프레임워크
+- 스마트 컨트랙트 컴파일, 배포 및 테스트 기능을 쉽게 할 수 있도록 도와줌
 
-
+- 리액트 설치
+(리액트를 설치해야만 사용할 수 있는건 아님. 그냥 우리가 리액트 쓸 거라서)
+```sh
+npx create-react-app test
+cd test
+npm i truffle
+npx truffle init
+```
+- npx truffle init을 하면 초기 세팅을 도와준다. 3개의 폴더가 생김
 
