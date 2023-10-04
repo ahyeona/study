@@ -36,6 +36,7 @@ import {"Contract이름"} from "파일경로";
 
 
 # 데이터의 타입
+
 ```javascript
 contract Counter {
 
