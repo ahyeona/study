@@ -67,7 +67,7 @@ const App = () => {
     return result;
   }
 
-  // 이더 잔액 보여주는 함수
+  // 잔액 보여주는 함수
   const getEther = async (account) => {
     let result = web3.utils.toBigInt(await window.ethereum.request({jsonrpc : "2.0", method : "eth_getBalance", params : [account]}));
     result = await web3.utils.fromWei(result, "ether");
