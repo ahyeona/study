@@ -16,7 +16,8 @@ const App = () => {
     if (web3 !== null) {
       if (ERC20Contract) return;
       // 네트워크에서 컨트랙트 조회해서 인스턴스로 가져옴
-      const ERC20 = new web3.eth.Contract(abi, "0x324042249835aB51cc69b033b2bc480Fb551B9BC", {data : ""});
+      // const ERC20 = new web3.eth.Contract(abi, "0x324042249835aB51cc69b033b2bc480Fb551B9BC", {data : ""});
+      const ERC20 = new web3.eth.Contract(abi, "0xf2A0c776Fb427b1380b358E58cBCa99A072c58e7", {data : ""});
       setERC20Contract(ERC20);
     }
 
@@ -26,7 +27,8 @@ const App = () => {
     // 이벤트 등록. 네트워크가 변경되면 발생하는 이벤트 등록
     window.ethereum.on("chainChanged", (chainId) => {
       console.log("네트워크가 변경되었음", chainId);
-      if (chainId === "0x539") {
+      // if (chainId === "0x539") { // ganache
+      if (chainId === "0xaa36a7") { // 세폴리아
         getAccounts();
       }
     });
@@ -50,7 +52,8 @@ const App = () => {
     // wallet_switchEthereumChain == 매개변수로 전달한 chainid가 맞는지 확인
     // 0x539 1337 우리가 지정한 가나쉬 chainid
     // 디폴트 1337
-    const net = await window.ethereum.request({jsonrpc : "2.0", method : "wallet_switchEthereumChain", params : [{chainId : "0x539"}]});
+    // const net = await window.ethereum.request({jsonrpc : "2.0", method : "wallet_switchEthereumChain", params : [{chainId : "0x539"}]});
+    const net = await window.ethereum.request({jsonrpc : "2.0", method : "wallet_switchEthereumChain", params : [{chainId : "0xaa36a7"}]});
     // net값이 null이면 해당 네트워크에 있다는 뜻
     setNetwork(net || true);
   }
@@ -112,7 +115,7 @@ const App = () => {
       <h2>토큰 보유량 : {token}</h2>
       {accounts.map((item, index)=> (
         <div key = {index}>
-          계정 : {item.account} : 토큰량 : {item.token} 이더 : {item.ether}
+          계정 : {item.account} : 토큰량 : {item.token} 잔액 : {item.ether}
         </div>
       ))}
       <div>
@@ -131,3 +134,5 @@ export default App;
 // 계정들의 이더리움 잔액도 보여주는 함수를 만들어서 보여주자
 
 // 리믹스로 세폴리아에 배포해보기
+// 지금 가나쉬 네트워크로 배포한 거 세폴리아 테스트 네트워크에 배포하고
+// 네트워크 아이디 부분 세폴리아 네트워크에 연결할 수 있게 수정 (네트워크 아이디 해시값 확인해서)
