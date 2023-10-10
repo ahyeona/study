@@ -30,6 +30,33 @@ npx truffle init
 
 npx create-react-app erc20
 
+# 오픈 제플린(프레임워크)에서 제공하는 ERC20, ERC721 등 표준 토큰을 가지고 상속시켜서 토큰 사용
+npm init -y
+npm i @openzeppelin/contracts
+
+# 설치되면
+# node_modules 폴더 안에 @openzeppelin/contracts 안 token 폴더에 토큰의 내용이 담겨 있다.
+
+# truffle로 배포해서 테스트
+# truffle-config 수정
+npx truffle compile
+# 토큰의 량을 확인하려면 networkId도 같은 식별자인데 디폴트 값이 설정될 수 있어서
+# 옵션으로 추가를 해주자
+npx ganache-cli --chain.chainId 1337 --chain.networkId 1337
+npx truffle migrate
+
+# remix
+# 배포 및 테스트 환경을 지원하는 웹 IDE
+
+# remix 웹페이지에서 workspace에 우리의 작업 내용 vscode를 가져와서 작업을 진행할 수 있다.
+npm install -g @remix-project/remixd
+remixd -s . --remix-ide https://remix.ethereum.org
+
+# remix IDE 페이지에서 요청을 받아주길 대기중인 상태
+# connect to localhost 클릭하면
+
+# remix 세번째 탭에 컴파일 버전 확인하고
+
 ```
 
 
