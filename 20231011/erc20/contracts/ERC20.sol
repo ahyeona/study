@@ -86,8 +86,8 @@ contract ERC20 is IERC20 {
         return true;
     }
 
-    function transferFrom(address spender, address to, uint amount) external override returns (bool) {
-        require(allowance[spender][msg.sender] >= amount);
+    function transferFrom(address sender, address to, uint amount) external override returns (bool) {
+        require(allowance[sender][msg.sender] >= amount);
         // sender == A
         // msg.sender == B
         // to == C
@@ -103,8 +103,8 @@ contract ERC20 is IERC20 {
 
 
 
-        allowance[spender][msg.sender] -= amount;
-        balances[spender] -= amount;
+        allowance[sender][msg.sender] -= amount;
+        balances[sender] -= amount;
         balances[to] += amount;
 
         // {

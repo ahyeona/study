@@ -176,6 +176,19 @@
 			},
 			{
 				"inputs": [],
+				"name": "getTokenPrice",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
 				"name": "name",
 				"outputs": [
 					{
@@ -214,6 +227,30 @@
 					}
 				],
 				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "to",
+						"type": "address"
+					},
+					{
+						"internalType": "string",
+						"name": "_name",
+						"type": "string"
+					}
+				],
+				"name": "sendPokemon",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -270,7 +307,7 @@
 				"inputs": [
 					{
 						"internalType": "address",
-						"name": "spender",
+						"name": "sender",
 						"type": "address"
 					},
 					{
@@ -347,11 +384,11 @@
 	},
 	"sources": {
 		"contracts/ERC20.sol": {
-			"keccak256": "0x683c559d298925e78d9ce9950e1898944eeec7a827af4ab522696901c1cfb4fa",
+			"keccak256": "0xae568efae4d58efd2a604d590339c8054842de8cb6aedb2f4044940371d039cc",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://86362281a8ad18a80607a6dcc78479eed9de9ebdd8f40c7fbb4e9ff4b5bc5df4",
-				"dweb:/ipfs/QmNSUBpFS591ZtDc2Cbo2GvDxrJTSWPcBxcXkKDg1NqC1X"
+				"bzz-raw://a480b8d8de89d3e6ac634d262798d0606ea1b91882431abe39a46196569ea151",
+				"dweb:/ipfs/QmedMT2DGcySBFhavxQFeYCnxZq5SDeDJr5VpERZizoWaJ"
 			]
 		},
 		"contracts/IERC20.sol": {
@@ -363,11 +400,11 @@
 			]
 		},
 		"contracts/Pokemon.sol": {
-			"keccak256": "0x080ad5987edab4ad8c1ee8dcf219b53b4e811476f922f228de3bc9cd163dbcd4",
+			"keccak256": "0x5d0b0f17a8858adc8acb9266095f3f666d87c0b7ba38853fc3e7b2bb9caa3a10",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://9373a4f387a9b0ebd0f0099912d0fc0edb1c6095427678983a0aca5552d5e07b",
-				"dweb:/ipfs/QmYVJvgunXvjCJ1dMsPdUQA4VUr63nXTNqqvzYTSYccmJh"
+				"bzz-raw://8d82bac1648bd16fcf2828824bfd8f5b2c819fb8c13441863235fb79d4a6a66a",
+				"dweb:/ipfs/QmYTebgHBAVq2dAoNmbCeZU5SszcK6hcjR3VfGJcbAAxxD"
 			]
 		}
 	},

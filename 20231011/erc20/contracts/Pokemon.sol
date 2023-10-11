@@ -4,7 +4,7 @@ pragma solidity ^0.8.19;
 import "./ERC20.sol";
 
 contract Pokemon is ERC20 {
-    constructor() ERC20("Pokemon", "PTK", 10000) {}
+    constructor() ERC20("Pokemon", "PTK", 100000) {}
 
     // 포켓몬 객체를 만들 것
     // 이 객체 하나가 포켓몬의 데이터
@@ -76,7 +76,7 @@ contract Pokemon is ERC20 {
 
         // 유저가 포켓몬빵을 한 번 산 적이 있는지
         bool isUser = false;
-        for(uint256 i = 0; i < users.length; i++) {
+        for (uint256 i = 0; i < users.length; i++) {
             if (users[i].account == msg.sender) {
                 isUser = true;
                 break;
@@ -86,5 +86,39 @@ contract Pokemon is ERC20 {
         if (!isUser) {
             users.push(Users(msg.sender));
         }
+    }
+
+    function getTokenPrice() external view returns (uint256) {
+        return tokenPrice;
+    }
+
+    function removePokemon(uint256 index) internal {
+        for (uint256 i = index; i < pokemons[msg.sender].length - 1; i++) {
+            pokemons[msg.sender][i] = pokemons[msg.sender][i+1];
+        }
+        pokemons[msg.sender].pop();
+    }
+
+    function sendPokemon(address to, string memory _name) external returns (bool) {
+        bool isUser = false;
+        for (uint256 i = 0; i < users.length; i++) {
+            if (users[i].account == to) {
+                isUser = true;
+                break;
+            }
+        }
+
+        if (!isUser) {
+            users.push(Users(to));
+        }
+
+        for (uint256 i = 0; i < pokemons[msg.sender].length; i++) {
+            if (keccak256(abi.encodePacked(pokemons[msg.sender][i].name)) == keccak256(abi.encodePacked(_name))) {
+                pokemons[to].push(pokemons[msg.sender][i]);
+                removePokemon(i);
+                break;
+            }
+        }
+        return true;
     }
 }
