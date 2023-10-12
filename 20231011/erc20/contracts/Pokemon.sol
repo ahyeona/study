@@ -34,8 +34,8 @@ contract Pokemon is ERC20 {
     // 포켓몬 이쁜 이미지를 담아놓을 배열
     string[] pokemonUrl = [
         "https://upload.wikimedia.org/wikipedia/ko/thumb/a/a6/Pok%C3%A9mon_Pikachu_art.png/200px-Pok%C3%A9mon_Pikachu_art.png",
-        "https://static.wikia.nocookie.net/pokemon/images/a/aa/%EA%BC%AC%EB%B6%80%EA%B8%B0_%EA%B3%B5%EC%8B%9D_%EC%9D%BC%EB%9F%AC%EC%8A%A4%ED%8A%B8.png/revision/latest?cb=20170404233452&path-prefix=ko",
-        "https://static.wikia.nocookie.net/pokemon/images/5/5e/%ED%8C%8C%EC%9D%B4%EB%A6%AC_%EA%B3%B5%EC%8B%9D_%EC%9D%BC%EB%9F%AC%EC%8A%A4%ED%8A%B8.png/revision/latest/scale-to-width-down/1200?cb=20170404233005&path-prefix=ko"
+        "https://i.namu.wiki/i/6vWQgArAe8pQlIiWZAWfKgpelczeYl5hryNs8-hdZw2ltMctNuJhEOTCkNQJVZWPbSnqq2RhH0u4qCAkw9E6cw.gif",
+        "https://t1.daumcdn.net/cfile/tistory/99BB433359E8C2BF32"
     ];
 
     // 구매하면 한 개를 얻는데

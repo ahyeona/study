@@ -14,7 +14,7 @@ const App = () => {
   const [sendAccount, setSendAccount] = useState("");
   const [sendPokemonName, setSendPokemonName] = useState("");
 
-  const CA = "0x8dA617778a8A528Fe8059Eb0B8F65066247b781c";
+  const CA = "0x8bcAc79b72210f940101B9acaAdf18F9f9C555e2";
 
   useEffect(() => {
     if (web3 !== null) {
@@ -64,15 +64,15 @@ const App = () => {
       accounts.map(async ({account}) => {
         const token = await getToken(account);
         const pokemon = await getPokemon(account);
-        if (account == user.account) {
-          setToken(token);
-        }
+        // if (account == user.account) {
+        //   setToken(token);
+        // }
         return { account, token, pokemon };
       })
     );
 
     setAccounts(_accounts);
-
+    setToken(await getToken(user.account));
     setUserPokemons(await getPokemon(user.account));
   }
 
@@ -88,10 +88,10 @@ const App = () => {
 
   // 포켓몬 뽑기
   const buyPokemon = async () => {
-    // if (token < tokenPrice) {
-    //  alert("돈 없음");
-        // return;
-    // }
+    if (token < tokenPrice) {
+     alert("돈 없음");
+        return;
+    }
     await contract.methods.buyPokemon().send({
       from : user.account
     });
@@ -105,7 +105,7 @@ const App = () => {
     setTokenPrice(result);
   }
 
-  // 포켓몬 이전
+  // 포켓몬 전송
   const sendPokemon = async () => {
     if (sendPokemonName.length == "") {
       alert("포켓몬 선택하세요");
@@ -150,7 +150,7 @@ const App = () => {
           <div>포켓몬들<br />
             {item.pokemon.map((item, index) => (
               <div key={index}>
-                {item.name} : <img width={50} src={item.url} alt="이미지" />
+                {item.name} : <img width={"100px"} src={item.url} alt="이미지" />
               </div>
             ))}
           </div>

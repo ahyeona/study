@@ -400,11 +400,11 @@
 			]
 		},
 		"contracts/Pokemon.sol": {
-			"keccak256": "0x5d0b0f17a8858adc8acb9266095f3f666d87c0b7ba38853fc3e7b2bb9caa3a10",
+			"keccak256": "0x6d515452a7e2433d1f46c38fb84751820823fc3874f98767e904a18923fb7916",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://8d82bac1648bd16fcf2828824bfd8f5b2c819fb8c13441863235fb79d4a6a66a",
-				"dweb:/ipfs/QmYTebgHBAVq2dAoNmbCeZU5SszcK6hcjR3VfGJcbAAxxD"
+				"bzz-raw://5dece2150d71e5b32ae414117c09f9226d4f15323940dae2dbf79689f38900a8",
+				"dweb:/ipfs/QmXXRUqyQmF54cHL943fTUtVnu817HFd8kUEEsW7fje3nV"
 			]
 		}
 	},
