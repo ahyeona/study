@@ -4,11 +4,12 @@ import useWeb3 from "./hooks/web3.hook";
 import { List, Insert, Mypage } from './pages';
 import { useEffect, useState } from 'react';
 import abi from "./abi/Shop.json";
+import Navbar from './components/navbar/Navbar';
 
 function App() {
   const { user, web3 } = useWeb3();
   const [contract, setContract] = useState(null);
-  const CA = "0x4d16a3F2eD525b001a0178AfB540ec7Ef8D31922";
+  const CA = "0xE63Ce00582f9C4b7106ac42784900734C002101D";
 
   useEffect(()=>{
     if (web3 !== null) {
@@ -29,6 +30,7 @@ function App() {
 
   return (
     <div className="App">
+      <Navbar />
       <Routes>
         <Route path='/' element={<List user = {user} web3 = {web3} contract = {contract} />} />
         <Route path='/insert' element={<Insert user = {user} web3 = {web3} contract = {contract} />} />

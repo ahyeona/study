@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import axios from '../Axios';
+import { useNavigate } from 'react-router-dom';
 
 // 상품 등록
 const Insert = ({user, web3, contract}) => {
@@ -7,14 +8,13 @@ const Insert = ({user, web3, contract}) => {
     const [price, setPrice] = useState("");
     const [img, setImg] = useState(null);
 
+    const nav = useNavigate();
+
     // 상품 등록하는 함수
     const registerProduct = async () => {
         const data = await contract.methods.registerProduct(name, price).send({
             from : user.account
         });
-
-        console.log(data);
-        console.log(img);
 
         const formData = new FormData();
         formData.append("blockNumber", data.blockNumber);
@@ -30,16 +30,24 @@ const Insert = ({user, web3, contract}) => {
         setName("");
         setPrice("");
         setImg(null);
+
+        if (data.status == 1) {
+            alert("등록이 완료되었습니다.");
+            nav("/");
+        } else {
+            alert("등록 실패");
+        }
     }
 
     return (
         <div>
-            상품 등록<br />
-            <label>이름</label><br />
+            <h1>상품 등록</h1>
+            <h4 style={{color: "red"}}>배포자만 등록 가능</h4>
+            <label>이름</label>
             <input type="text" onChange={(e)=>{setName(e.target.value)}}/><br />
-            <label>가격</label><br />
+            <label>가격</label>
             <input type="text" onChange={(e)=>{setPrice(e.target.value)}}/><br />
-            <label>이미지</label><br />
+            <label>이미지</label>
             <input type="file" onChange={(e)=>{console.log(e.target.files[0]); setImg(e.target.files[0])}}/><br />
             <button onClick={registerProduct}>등록</button>
         </div>

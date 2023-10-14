@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from "../Axios";
+import Product from '../components/product/Product';
 
 const Mypage = ({user, web3, contract, CA}) => {
 
@@ -52,21 +53,20 @@ const Mypage = ({user, web3, contract, CA}) => {
 
   return (
     <div>
-      토큰 : {token}
+      <h1>마이페이지</h1>
+      <h4>유저 : {user.account}</h4>
+      <h4>토큰 : {token}</h4>
+      <h4>잔액 : {user.balance}</h4>
       <div>
-        토큰 구매
-        <input type="text" onChange={(e) => {setValue(e.target.value.trim())}}/>
-        <button onClick={buyToken}>토큰 구매</button>
+        <h2>토큰 구매</h2>
+        <input type="text" style={{width : "100px"}} placeholder='이더 금액 입력' onChange={(e) => {setValue(e.target.value.trim())}}/>ether<br/>
+        <button onClick={buyToken}>{value * 500} 토큰 구매</button>
       </div>
-      <div>유저 구매 목록</div>
+      <h2>유저 구매 목록</h2>
       {
         products.map((el, index) => {
           return (
-          <div>
-            <div>이름 : {el.name}</div>
-            <div>가격 : {el.etherPrice}</div>
-            <div>이미지 : <img src={el.img}/></div>
-          </div>
+            <Product el={el} buyProduct={false} />
           )
         })
       }
