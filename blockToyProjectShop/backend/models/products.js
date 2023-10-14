@@ -3,7 +3,7 @@ const Sequelize = require("sequelize");
 class Product extends Sequelize.Model {
     static init(sequelize) {
         return super.init({
-            blockhash : {
+            blockNumber : {
                 type : Sequelize.TEXT,
                 allowNull : false
             },

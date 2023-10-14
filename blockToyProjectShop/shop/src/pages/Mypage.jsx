@@ -17,7 +17,7 @@ const Mypage = ({user, web3, contract, CA}) => {
       products.map(async (el, index) => {
         let product = {...el};
         product.etherPrice = await web3.utils.fromWei(el.price, "ether");
-        const { data } = await axios.post(`/product/getImg`, {blockHash : await web3.utils.toBigInt(el.id).toString(10)});
+        const { data } = await axios.post(`/product/getImg`, {blockNumber : await web3.utils.toBigInt(el.id).toString(10)});
         product.img = `http://localhost:8080/imgs/${data}`;
         return product;
       })
