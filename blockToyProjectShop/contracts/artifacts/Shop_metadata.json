@@ -395,11 +395,11 @@
 			]
 		},
 		"Shop2.sol": {
-			"keccak256": "0x1492ea8348679726ca3eb688410755af586cbfd5191c294af4dba358d910a207",
+			"keccak256": "0x04fe7268098658693226c51241e8e2fbea8c50057a52d6ba811e9e84e58cd2d6",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://c47f47c763ac701a05c86e87a22aa7a82d2ff4204460440ac79c5de9a5175a21",
-				"dweb:/ipfs/QmNnvm1j8aJsFJxUZqtadayM6wCN9k6J797PyvzjnQ37a3"
+				"bzz-raw://f7a734e9fa4ea556d6b453599e69e7ae0e7a33862d273009e654fbe99e3e877a",
+				"dweb:/ipfs/QmP5zt8wzYeW5znsncGHWBkBf521BgKy67aEMMcMkYCeAK"
 			]
 		}
 	},

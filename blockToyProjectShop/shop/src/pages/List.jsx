@@ -21,8 +21,8 @@ const List = ({ user, web3, contract }) => {
       data.map(async (el, index) => {
         let product = {...el};
         product.etherPrice = await web3.utils.fromWei(el.price, "ether");
-        // let url = await axios.get(`/getImg/${el.id}`);
-        // product.img = await axios.get(`/img/${url}`);
+        const { data } = await axios.post(`/product/getImg`, {blockHash : await web3.utils.toBigInt(el.id).toString(10)});
+        product.img = `http://localhost:8080/imgs/${data}`;
         return product;
       })
     )
@@ -30,15 +30,13 @@ const List = ({ user, web3, contract }) => {
     setProducts(_products);
   }
 
-
-
   useEffect(() => {
     if (products==null) {
       getProducts();
     }
   }, []);
 
-  if (products == null) return "dksehla";
+  if (products == null) return "로딩중";
 
 
   return (
@@ -50,7 +48,7 @@ const List = ({ user, web3, contract }) => {
             <div>이름 : {el.name}</div>
             {/* <div>가격 : {await web3.utils.fromWei(el.price, "ether")}</div> */}
             <div>가격 : {el.etherPrice}</div>
-            {/* <div>이미지 : <img src={el.img}/></div> */}
+            <div>이미지 : <img src={el.img}/></div>
             <button onClick={() => { buyProduct(el.id) }}>구매</button>
           </div>
           )

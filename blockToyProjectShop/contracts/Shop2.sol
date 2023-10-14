@@ -89,7 +89,7 @@ contract Shop is ERC20 {
     function registerProduct(string memory _name, uint256 _price) public returns (bool) {
         require(msg.sender == owner);
         uint256 price = _price * (10 ** decimals);
-        products.push(Product(uint256(blockhash(block.number)), _name, price));
+        products.push(Product(block.number, _name, price));
         // products.push(Product(productId, _name, price));
         // productId += 1;
 

@@ -8,7 +8,7 @@ import abi from "./abi/Shop.json";
 function App() {
   const { user, web3 } = useWeb3();
   const [contract, setContract] = useState(null);
-  const CA = "0x3DF4853042E113e2ee15d3d40d900735c0Da36EA";
+  const CA = "0x4d16a3F2eD525b001a0178AfB540ec7Ef8D31922";
 
   useEffect(()=>{
     if (web3 !== null) {

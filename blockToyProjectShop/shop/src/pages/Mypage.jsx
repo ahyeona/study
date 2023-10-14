@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import axios from "../Axios";
 
 const Mypage = ({user, web3, contract, CA}) => {
 
@@ -16,6 +17,8 @@ const Mypage = ({user, web3, contract, CA}) => {
       products.map(async (el, index) => {
         let product = {...el};
         product.etherPrice = await web3.utils.fromWei(el.price, "ether");
+        const { data } = await axios.post(`/product/getImg`, {blockHash : await web3.utils.toBigInt(el.id).toString(10)});
+        product.img = `http://localhost:8080/imgs/${data}`;
         return product;
       })
       )
@@ -31,7 +34,7 @@ const Mypage = ({user, web3, contract, CA}) => {
       to : CA,
       value : _value
     });
-    
+
     getToken();
   }
 
@@ -62,7 +65,7 @@ const Mypage = ({user, web3, contract, CA}) => {
           <div>
             <div>이름 : {el.name}</div>
             <div>가격 : {el.etherPrice}</div>
-            <div>이미지 : </div>
+            <div>이미지 : <img src={el.img}/></div>
           </div>
           )
         })

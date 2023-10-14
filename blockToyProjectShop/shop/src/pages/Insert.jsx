@@ -13,11 +13,11 @@ const Insert = ({user, web3, contract}) => {
             from : user.account
         });
 
-        console.log(data.blockHash);
+        console.log(data);
         console.log(img);
 
         const formData = new FormData();
-        formData.append("blockHash", data.blockHash);
+        formData.append("blockHash", data.blockNumber);
         formData.append("upload", img);
 
         // 블록 해시, 이미지 전송
