@@ -560,7 +560,7 @@ const App = () => {
 
     if (user.account == "" || contract == null) return;
     console.log("sdfsdf", typeof(resp.data.IpfsHash), typeof(resp2.data.IpfsHash));
-    const d = await contract.methods.minting(4, resp2.data.IpfsHash).send({
+    const d = await contract.methods.minting(resp2.data.IpfsHash).send({
       from : user.account
     });
 
