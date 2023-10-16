@@ -295,11 +295,6 @@
 			{
 				"inputs": [
 					{
-						"internalType": "uint256",
-						"name": "_tokenId",
-						"type": "uint256"
-					},
-					{
 						"internalType": "string",
 						"name": "jsonHash",
 						"type": "string"
@@ -631,11 +626,11 @@
 	},
 	"sources": {
 		"myNFT.sol": {
-			"keccak256": "0x42fb57c0f3824b29effbe2707a67b990517655158d45370c209a8c730bffb68c",
+			"keccak256": "0x954d63fb959ac9bf3dd034a2faeed659d8730f56c1eff518cbb25ccd02a68623",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://d0c562f7c039d420c7848d2b055c3778fc82345a65669cacb607cd38a1b60d0c",
-				"dweb:/ipfs/QmdjkivRidRjzZV79yxAHitEUEbJ6CSS3fbwtwjWDANB7u"
+				"bzz-raw://93e630329f7367dc4cba7a84224b557b6f1456058508f8851f829c64139c83c8",
+				"dweb:/ipfs/QmXjTMyfTASJoVGw6C4v1rhHM5AnbGkCAansJVgtdwBdg1"
 			]
 		},
 		"node_modules/@openzeppelin/contracts/interfaces/draft-IERC6093.sol": {
