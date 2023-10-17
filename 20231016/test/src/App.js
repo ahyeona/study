@@ -514,7 +514,7 @@ const App = () => {
 		}
 	]
     // const c = new web3.eth.Contract(abi, "0x0869e5D61d9e7e5b3dc3482e7CfBeE86E2Ee07F3", {data : ""});
-    const c = new web3.eth.Contract(abi, "0x2E463EB93dFEc153Ac2f971c0d9aA98Faa0b4821", {data : ""});
+    const c = new web3.eth.Contract(abi, "0x99f318cA68230F014bae9D8e684cF8D3699b2F08", {data : ""});
     setContract(c);
   }, [web3]);
 
@@ -550,8 +550,8 @@ const App = () => {
       {
         headers: {
           "Content-Type": "multipart/form-data",
-          pinata_api_key: "92a7a5e56c90af303eeb",
-          pinata_secret_api_key: "642384d685759f3ac90c4f516f5c9e80cfc000b7bb1706b013837e8e775a70be"
+          pinata_api_key: "",
+          pinata_secret_api_key: ""
         }
       });
 
