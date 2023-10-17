@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Web3 from "web3";
-import { pinata_api_key, pinata_secret_api_key } from "../api";
+import { pinata_api_key, pinata_secret_api_key } from "./api";
 
 const App = () => {
   const [file, setFile] = useState(null);
