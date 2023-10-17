@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Web3 from "web3";
+import { pinata_api_key, pinata_secret_api_key } from "../api";
 
 const App = () => {
   const [file, setFile] = useState(null);
@@ -527,8 +528,8 @@ const App = () => {
       {
         headers: {
           "Content-Type": "multipart/form-data",
-          pinata_api_key: "",
-          pinata_secret_api_key: ""
+          pinata_api_key,
+          pinata_secret_api_key,
         }
       });
 
@@ -550,8 +551,8 @@ const App = () => {
       {
         headers: {
           "Content-Type": "multipart/form-data",
-          pinata_api_key: "",
-          pinata_secret_api_key: ""
+          pinata_api_key,
+          pinata_secret_api_key,
         }
       });
 
